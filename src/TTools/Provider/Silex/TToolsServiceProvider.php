@@ -12,7 +12,7 @@ class TToolsServiceProvider implements ServiceProviderInterface{
 
     public function register(Container $app)
     {
-        $app['ttools'] = $app->share(function ($app) {
+        $app['ttools'] = function ($app) {
            
             $storage_provider = null;
             $request_provider = null;
@@ -31,7 +31,7 @@ class TToolsServiceProvider implements ServiceProviderInterface{
             $request_provider = new SilexRequestProvider($app['request']);
 
             return new App($config, $storage_provider, $request_provider);
-        });
+        };
 
     }
 
