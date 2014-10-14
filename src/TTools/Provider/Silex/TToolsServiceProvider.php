@@ -5,12 +5,12 @@ namespace TTools\Provider\Silex;
 use TTools\App;
 use TTools\Provider\Silex\SilexStorageSession;
 use TTools\Provider\Silex\SilexRequestProvider;
-use Silex\Application;
-use Silex\ServiceProviderInterface;
+use Pimple\Container;
+use Pimple\ServiceProviderInterface;
 
 class TToolsServiceProvider implements ServiceProviderInterface{
 
-    public function register(Application $app)
+    public function register(Container $app)
     {
         $app['ttools'] = $app->share(function ($app) {
            
