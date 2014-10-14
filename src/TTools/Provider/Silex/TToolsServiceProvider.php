@@ -28,7 +28,7 @@ class TToolsServiceProvider implements ServiceProviderInterface{
                 $storage_provider = new SilexStorageSession($app['session']);
             }
 
-            $request_provider = new SilexRequestProvider($app['request']);
+            $request_provider = new SilexRequestProvider($app['request_stack']->getCurrentRequest());
 
             return new App($config, $storage_provider, $request_provider);
         };
