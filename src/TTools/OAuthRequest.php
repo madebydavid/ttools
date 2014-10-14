@@ -182,7 +182,10 @@ class OAuthRequest {
      */
     protected function curlRequest($url, $params = array(), $headers = array(), $method = 'GET', $multipart = false)
     {
-        $requestUrl = $this->baseUrl . $url . '?' . $this->formatQueryString($params);
+        $requestUrl = $this->baseUrl . $url;
+        if ($method != 'POST') {
+            $requestUrl = $this->baseUrl . $url . '?' . $this->formatQueryString($params);    
+        }
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
@@ -200,6 +203,8 @@ class OAuthRequest {
 
         if ($method == 'POST') {
             curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $this->formatQueryString($params));
+            curl_setopt($curl, CURLOPT_TIMEOUT, 0);
         }
 
         $response = new OAuthResponse();
